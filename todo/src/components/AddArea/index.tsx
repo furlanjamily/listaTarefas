@@ -1,18 +1,24 @@
-import { useState, KeyboardEvent } from 'react';
+import { useState, KeyboardEvent, ChangeEvent } from 'react';
 import * as C from './styles';
 
 type Props = {
-    onEnter: (taskName: string) => void
+    onEnter: (taskName: string, category: string) => void;
 }
 
 export const AddArea = ({ onEnter }: Props) => {
     const [inputText, setInputText] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('');
 
-    const handleKeyUp = (e: KeyboardEvent) => {
-        if(e.code === 'Enter' && inputText !== '') {
-            onEnter(inputText);
+    const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.code === 'Enter' && inputText !== '' && selectedCategory !== '') {
+            onEnter(inputText, selectedCategory);
             setInputText('');
+            setSelectedCategory('');
         }
+    }
+
+    const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCategory(e.target.value);
     }
 
     return (
@@ -22,9 +28,18 @@ export const AddArea = ({ onEnter }: Props) => {
                 type="text"
                 placeholder="Adicione uma tarefa"
                 value={inputText}
-                onChange={e=>setInputText(e.target.value)}
+                onChange={e => setInputText(e.target.value)}
                 onKeyUp={handleKeyUp}
             />
+            <select 
+            className="selected-category"
+            value={selectedCategory} 
+            onChange={handleCategoryChange}>
+                <option value="">Selecione uma Categoria</option>
+                <option value="Trabalho">Trabalho</option>
+                <option value="Pessoal">Pessoal</option>
+                <option value="Estudos">Estudos</option>
+            </select>
         </C.Container>
     );
 }

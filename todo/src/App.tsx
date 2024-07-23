@@ -11,12 +11,13 @@ const App = () => {
   
   ]);
 
-  const handleAddTask = (taskName: string) => {
+  const handleAddTask = (taskName: string, category: string) => {
     let newList = [...list];
     newList.push({
       id: list.length + 1,
       name: taskName,
-      done: false
+      done: false,
+      category: category
     });
     setList(newList);
     console.log(newList); 
