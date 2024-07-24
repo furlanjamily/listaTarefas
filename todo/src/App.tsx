@@ -1,37 +1,23 @@
 import React, { useState } from 'react';
 import * as C from './App.styles';
 import { Item } from './types/Item';
-import {ListItem} from './components/ListItem'; 
-import {AddArea} from './components/AddArea';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { ListItem } from './components/ListItem'; 
+import { AddArea } from './components/AddArea';
+import { ClipboardX } from 'lucide-react';
 
-const App = () => {
-  const [list, setList] = useState<Item[]>([
-  
-  ]);
+const App: React.FC = () => {
+  const [list, setList] = useState<Item[]>([]);
 
   const handleAddTask = (taskName: string, category: string) => {
-    let newList = [...list];
-    newList.push({
-      id: list.length + 1,
-      name: taskName,
-      done: false,
-      category: category
-    });
+    const newList = [...list, { id: list.length + 1, name: taskName, done: false, category }];
     setList(newList);
     console.log(newList); 
-  }
+  };
 
   const handleTaskChange = (id: number, done: boolean) => {
-    let newList = [...list];
-    for (let i in newList) {
-      if (newList[i].id === id) {
-        newList[i].done = done;
-      }
-    }
+    const newList = list.map(task => task.id === id ? { ...task, done } : task);
     setList(newList);
-  }
+  };
 
   const handleDelete = (id: number) => {
     const updatedList = list.filter(item => item.id !== id);
@@ -45,18 +31,24 @@ const App = () => {
 
         <AddArea onEnter={handleAddTask} />
 
-        {list.map((item, index) => (
-          <ListItem
-            key={index}
-            item={item}
-            onChange={handleTaskChange}
-            onDelete={() => handleDelete(item.id)} 
-          />
-        ))}
-
+        {list.length === 0 ? (
+          <div className="empty-state">
+            <ClipboardX size={48} color="#ccc" />
+            <p>Sem tarefas adicionadas</p>
+          </div>
+        ) : (
+          list.map((item, index) => (
+            <ListItem
+              key={index}
+              item={item}
+              onChange={handleTaskChange}
+              onDelete={() => handleDelete(item.id)}
+            />
+          ))
+        )}
       </C.Area>
     </C.Container>
   );
-}
+};
 
 export default App;

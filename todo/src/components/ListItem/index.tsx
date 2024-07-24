@@ -1,10 +1,9 @@
 import React from 'react';
-import * as C from './styles';
+import * as C from './styles';  // Verifique se o caminho está correto
 import { Item } from '../../types/Item';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ListTodo } from 'lucide-react';
-
 
 type Props = {
     item: Item;
@@ -33,9 +32,7 @@ export const ListItem: React.FC<Props> = ({ item, onChange, onDelete }) => {
             </C.ContentTask>
 
             <C.Category>
-
                 <C.StyledListTodo /> {item.category}
-
             </C.Category>
 
             <C.StyledTrashIcon icon={faTrash} onClick={handleDelete} />
