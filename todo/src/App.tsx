@@ -1,54 +1,51 @@
+// src/components/TaskList/TaskList.tsx
 import React, { useState } from 'react';
-import * as C from './App.styles';
-import { Item } from './types/Item';
-import { ListItem } from './components/ListItem'; 
-import { AddArea } from './components/AddArea';
-import { ClipboardX } from 'lucide-react';
+import { Item } from '../src/types/Item';
+import { ListItem } from '../src/components/ListItem';
+import * as C from '../src/App.styles';
+import { AddArea } from '../src/components/AddArea';
 
-const App: React.FC = () => {
-  const [list, setList] = useState<Item[]>([]);
+const initialTasks: Item[] = [];
 
-  const handleAddTask = (taskName: string, category: string) => {
-    const newList = [...list, { id: list.length + 1, name: taskName, done: false, category }];
-    setList(newList);
-    console.log(newList); 
-  };
+  const App: React.FC = () => {
+    const [tasks, setTasks] = useState<Item[]>(initialTasks);
 
-  const handleTaskChange = (id: number, done: boolean) => {
-    const newList = list.map(task => task.id === id ? { ...task, done } : task);
-    setList(newList);
-  };
+    const handleToggleTask = (id: number, done: boolean) => {
+        setTasks(tasks.map(task => task.id === id ? { ...task, done } : task));
+    };
 
-  const handleDelete = (id: number) => {
-    const updatedList = list.filter(item => item.id !== id);
-    setList(updatedList);
-  };
+    const handleDeleteTask = (id: number) => {
+        setTasks(tasks.filter(task => task.id !== id));
+    };
 
-  return (
-    <C.Container>
-      <C.Area>
-        <C.Header>Lista de Tarefas</C.Header>
+    const handleAddTask = (taskName: string, category: string) => {
+        setTasks([...tasks, { id: tasks.length + 1, name: taskName, category, done: false }]);
+    };
 
-        <AddArea onEnter={handleAddTask} />
-
-        {list.length === 0 ? (
-          <div className="empty-state">
-            <ClipboardX size={48} color="#ccc" />
-            <p>Sem tarefas adicionadas</p>
-          </div>
-        ) : (
-          list.map((item, index) => (
-            <ListItem
-              key={index}
-              item={item}
-              onChange={handleTaskChange}
-              onDelete={() => handleDelete(item.id)}
-            />
-          ))
-        )}
-      </C.Area>
-    </C.Container>
-  );
+    return (
+        <C.Container>
+          <C.Area>
+          <C.Header>Lista de Tarefas</C.Header>
+            <AddArea onEnter={handleAddTask} />
+            {tasks.length === 0 ? (
+                <div className="empty-state">
+                    <C.StyledClipboardX size={48} />
+                    <p>Sem tarefas adicionadas</p>
+                </div>
+            ) : (
+                tasks.map(task => (
+                    <ListItem
+                        key={task.id}
+                        item={task}
+                        onChange={handleToggleTask}
+                        onDelete={() => handleDeleteTask(task.id)}
+                    />
+                ))
+            )}
+            </C.Area>
+        </C.Container>
+    );
 };
+
 
 export default App;

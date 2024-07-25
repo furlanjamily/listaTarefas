@@ -7,14 +7,6 @@ type ContainerProps = {
     done: boolean;
 }
 
-export const TaskListContainer = styled.div`
-    
-        p {
-            margin-top: 10px;
-            font-size: 16px;
-        }
-    
-`;
 
 export const Container = styled.div<ContainerProps>`
     display: flex;
@@ -61,15 +53,6 @@ export const StyledListTodo = styled(ListTodo)`
     color: #CCC; 
 `;
 
-export const StyledClipboardX = styled(ClipboardX)`
-    margin-right: 5px; 
-    color: black; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; 
-`;
 
 export const StyledTrashIcon = styled(FontAwesomeIcon)`
     cursor: pointer;
