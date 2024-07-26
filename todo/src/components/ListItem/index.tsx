@@ -1,9 +1,9 @@
 import React from 'react';
-import * as C from './styles';  // Verifique se o caminho está correto
+import * as C from './styles';
 import { Item } from '../../types/Item';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { ListTodo } from 'lucide-react';
+import { ListTodo } from 'lucide-react'; // Certifique-se de que esse ícone está disponível
 
 type Props = {
     item: Item;
@@ -26,13 +26,13 @@ export const ListItem: React.FC<Props> = ({ item, onChange, onDelete }) => {
                 <input
                     type="checkbox"
                     checked={item.done}
-                    onChange={handleChange}
+                    onChange={handleChange}                                                                                             
                 />
                 <label>{item.name}</label>
             </C.ContentTask>
 
             <C.Category>
-                <C.StyledListTodo /> {item.category}
+            <ListTodo /> {item.category}
             </C.Category>
 
             <C.StyledTrashIcon icon={faTrash} onClick={handleDelete} />

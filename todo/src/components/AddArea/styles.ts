@@ -20,42 +20,19 @@ export const Container = styled.div`
         font-size: 18px;
         flex: 1;
     }
+`;
 
-    .selected-category {
-        border-radius: 10px;
-        background: transparent;
-        outline: 0;
-        color: white;
-        font-size: 18px;
-        padding-left: 8px;
-        padding-right: 4px;
-
-        option {
-            color: black; 
-            background: white; 
-        }
+export const SelectedCategory = styled.select`
+    border-radius: 10px;
+    background: transparent;
+    outline: 0;
+    color: white;
+    font-size: 18px;
+    padding-left: 8px;
+    padding-right: 4px;
+    
+    option {
+        color: black;
+        background: white;
     }
-
-    
-   
-        
-}
-    
 `;
-
-         export const SelectedCategory = styled.select`
-        border-radius: 10px;
-        background: transparent;
-        outline: 0;
-        color: white;
-        font-size: 18px;
-        padding-left: 8px;
-        padding-right: 4px;
-        
-        option {
-            color: black;
-            background: white;
-        }
-     
-`;
-

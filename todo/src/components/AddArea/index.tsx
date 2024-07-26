@@ -9,8 +9,17 @@ export const AddArea = ({ onEnter }: Props) => {
     const [inputText, setInputText] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
 
+
+
     const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.code === 'Enter' && inputText !== '' && selectedCategory !== '') {
+        e.preventDefault();
+        if (e.code === 'Enter' && selectedCategory === '') {
+            alert("Por favor, selecione uma categoria.");
+            return;
+
+        }
+
+        if (e.code === 'Enter' && inputText !== '') {
             onEnter(inputText, selectedCategory);
             setInputText('');
             setSelectedCategory('');
@@ -31,15 +40,16 @@ export const AddArea = ({ onEnter }: Props) => {
                 onChange={e => setInputText(e.target.value)}
                 onKeyUp={handleKeyUp}
             />
-            <select 
-            className="selected-category"
-            value={selectedCategory} 
-            onChange={handleCategoryChange}>
+            <C.SelectedCategory value={selectedCategory} onChange={handleCategoryChange}>
                 <option value="">Selecione uma Categoria</option>
                 <option value="Trabalho">Trabalho</option>
                 <option value="Pessoal">Pessoal</option>
                 <option value="Estudos">Estudos</option>
-            </select>
+            </C.SelectedCategory>
+
+
         </C.Container>
+
+
     );
 }

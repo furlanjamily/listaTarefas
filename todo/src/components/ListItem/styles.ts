@@ -36,16 +36,21 @@ export const ContentTask = styled.div`
     display: flex;
 `;
 
-export const Category = styled.select`
-    display: flex;
-    color: black;
+export const Category = styled.div`
+     display: flex;
+     color: #ccc;
+     gap: 8px; 
+     padding-right: 16px;
+
 `;
+
+
 
 export const CategoryText = styled.p`
     display: flex;
     color: #CCC;
-    padding: 0 4px; 
-    margin: 0 10px; 
+    padding: 4px; 
+    margin: 10px;
 `;
 
 export const StyledListTodo = styled(ListTodo)`
