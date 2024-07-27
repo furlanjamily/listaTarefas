@@ -9,14 +9,11 @@ export const AddArea = ({ onEnter }: Props) => {
     const [inputText, setInputText] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
 
-
-
     const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
         e.preventDefault();
         if (e.code === 'Enter' && selectedCategory === '') {
             alert("Por favor, selecione uma categoria.");
             return;
-
         }
 
         if (e.code === 'Enter' && inputText !== '') {
@@ -46,10 +43,6 @@ export const AddArea = ({ onEnter }: Props) => {
                 <option value="Pessoal">Pessoal</option>
                 <option value="Estudos">Estudos</option>
             </C.SelectedCategory>
-
-
         </C.Container>
-
-
     );
 }

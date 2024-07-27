@@ -3,7 +3,7 @@ import * as C from './styles';
 import { Item } from '../../types/Item';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { ListTodo } from 'lucide-react'; // Certifique-se de que esse ícone está disponível
+import { ListTodo } from 'lucide-react';
 
 type Props = {
     item: Item;
@@ -26,16 +26,16 @@ export const ListItem: React.FC<Props> = ({ item, onChange, onDelete }) => {
                 <input
                     type="checkbox"
                     checked={item.done}
-                    onChange={handleChange}                                                                                             
+                    onChange={handleChange}
                 />
                 <label>{item.name}</label>
             </C.ContentTask>
-
-            <C.Category>
-            <ListTodo /> {item.category}
-            </C.Category>
-
-            <C.StyledTrashIcon icon={faTrash} onClick={handleDelete} />
+            <C.ActionsContainer>
+                <C.Category>
+                    <ListTodo /> {item.category}
+                </C.Category>
+                <C.StyledTrashIcon icon={faTrash} onClick={handleDelete} />
+            </C.ActionsContainer>
         </C.Container>
     );
 };
