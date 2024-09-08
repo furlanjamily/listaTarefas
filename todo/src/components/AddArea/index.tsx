@@ -10,16 +10,17 @@ export const AddArea = ({ onEnter }: Props) => {
     const [selectedCategory, setSelectedCategory] = useState('');
 
     const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        if (e.code === 'Enter' && selectedCategory === '') {
-            alert("Por favor, selecione uma categoria.");
-            return;
-        }
+        if (e.code === 'Enter' || e.key === 'Enter') {
+            if (selectedCategory === '') {
+                alert("Por favor, selecione uma categoria.");
+                return;
+            }
 
-        if (e.code === 'Enter' && inputText !== '') {
-            onEnter(inputText, selectedCategory);
-            setInputText('');
-            setSelectedCategory('');
+            if (inputText !== '') {
+                onEnter(inputText, selectedCategory);
+                setInputText('');
+                setSelectedCategory('');
+            }
         }
     }
 
