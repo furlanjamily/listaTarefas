@@ -10,7 +10,8 @@ export const AddArea = ({ onEnter }: Props) => {
     const [selectedCategory, setSelectedCategory] = useState('');
 
     const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.code === 'Enter' || e.key === 'Enter') {
+        // Usar `e.key` em vez de `e.code` para melhor compatibilidade em dispositivos móveis
+        if (e.key === 'Enter') {
             if (selectedCategory === '') {
                 alert("Por favor, selecione uma categoria.");
                 return;
