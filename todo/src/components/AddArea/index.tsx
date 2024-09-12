@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, KeyboardEvent, ChangeEvent } from 'react';
 import * as C from './styles';
 
 type Props = {
@@ -6,11 +6,20 @@ type Props = {
 }
 
 export const AddArea = ({ onEnter }: Props) => {
-    const [inputText, setInputText] = useState('');
+    const [inputText, setInputText] = useState(''); 
     const [selectedCategory, setSelectedCategory] = useState('');
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // Previne o comportamento padrão do formulário de recarregar a página
+    const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.code === 'Enter' || e.key === 'Enter') {
+            handleAddTask();
+        }
+    }
+
+    const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCategory(e.target.value);
+    }
+
+    const handleAddTask = () => {
         if (selectedCategory === '') {
             alert("Por favor, selecione uma categoria.");
             return;
@@ -23,29 +32,27 @@ export const AddArea = ({ onEnter }: Props) => {
         }
     }
 
-    const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        setSelectedCategory(e.target.value);
-    }
-
     return (
         <C.Container>
-            <form onSubmit={handleSubmit}>
-                <div className="image">➕</div>
-                <input
-                    type="text"
-                    placeholder="Adicione uma tarefa"
-                    value={inputText}
-                    onChange={e => setInputText(e.target.value)}
-                    // Incluindo enterKeyHint como sugestão para melhorar UX em mobile
-                    enterKeyHint="done"
-                />
-                <C.SelectedCategory value={selectedCategory} onChange={handleCategoryChange}>
-                    <option value="">Selecione uma Categoria</option>
-                    <option value="Trabalho">Trabalho</option>
-                    <option value="Pessoal">Pessoal</option>
-                    <option value="Estudos">Estudos</option>
-                </C.SelectedCategory>
-            </form>
+            <div className="image">➕</div>
+            <input
+                type="text"
+                placeholder="Adicione uma tarefa"
+                value={inputText}
+                onChange={e => setInputText(e.target.value)}
+                onKeyUp={handleKeyUp}
+            />
+            <C.SelectedCategory value={selectedCategory} onChange={handleCategoryChange}>
+                <option value="">Selecione uma Categoria</option>
+                <option value="Trabalho">Trabalho</option>
+                <option value="Pessoal">Pessoal</option>
+                <option value="Estudos">Estudos</option>
+            </C.SelectedCategory>
+
+            {/* Botão que será exibido em dispositivos móveis e tablets */}
+            <C.ButtonAddTask onClick={handleAddTask}>
+                Adicionar
+            </C.ButtonAddTask>
         </C.Container>
     );
 }
